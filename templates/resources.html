@@ -1,0 +1,608 @@
+{% extends "base.html" %}
+
+{% block title %}HealthBridge | Find Resources{% endblock %}
+
+{% block content %}
+
+<section class="section-small">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                <i class="bi bi-search"></i>
+                Healthcare Resource Finder
+            </span>
+
+            <h1 class="mt-3"
+                style="font-weight:800; color:#0d3442;">
+
+                Find Healthcare Resources
+
+            </h1>
+
+            <p class="section-text mx-auto"
+               style="max-width:700px;">
+
+                Search hospitals, blood banks and medicines
+                from one centralized platform.
+
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH BOX -->
+
+        <div class="health-card mb-5">
+
+            <form method="GET"
+                  action="{{ url_for('resources') }}">
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-lg-5">
+
+                        <label class="form-label fw-bold">
+
+                            Search
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="bi bi-search"></i>
+
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q"
+                                value="{{ request.args.get('q','') }}"
+                                class="form-control"
+                                placeholder="Hospital, blood bank or medicine..."
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-4">
+
+                        <label class="form-label fw-bold">
+
+                            Resource Type
+
+                        </label>
+
+                        <select name="type"
+                                class="form-select">
+
+                            <option value="all"
+                                {% if request.args.get('type','all') == 'all' %}
+                                selected
+                                {% endif %}>
+
+                                All Resources
+
+                            </option>
+
+                            <option value="hospital"
+                                {% if request.args.get('type') == 'hospital' %}
+                                selected
+                                {% endif %}>
+
+                                Hospitals
+
+                            </option>
+
+                            <option value="blood"
+                                {% if request.args.get('type') == 'blood' %}
+                                selected
+                                {% endif %}>
+
+                                Blood Banks
+
+                            </option>
+
+                            <option value="medicine"
+                                {% if request.args.get('type') == 'medicine' %}
+                                selected
+                                {% endif %}>
+
+                                Medicines
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+
+                        <button type="submit"
+                                class="btn btn-health w-100">
+
+                            <i class="bi bi-search me-2"></i>
+
+                            Search Resources
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- HOSPITALS -->
+
+        {% if hospitals %}
+
+        <div class="mb-5">
+
+            <div class="d-flex justify-content-between
+                        align-items-center mb-3">
+
+                <div>
+
+                    <h3 style="font-weight:800;
+                               color:#0d3442;">
+
+                        <i class="bi bi-hospital-fill me-2"
+                           style="color:#159a91;"></i>
+
+                        Hospitals
+
+                    </h3>
+
+                    <p class="section-text">
+
+                        Hospitals with available beds
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                {% for hospital in hospitals %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="health-card h-100">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-start">
+
+                            <div class="icon-box icon-mint">
+
+                                <i class="bi bi-hospital-fill"></i>
+
+                            </div>
+
+
+                            <!-- FIXED: convert beds to integer -->
+                            {% if hospital.beds|int > 0 %}
+
+                            <span class="badge"
+                                  style="background:#dcf7ef;
+                                         color:#159a91;">
+
+                                Available
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge"
+                                  style="background:#ffe5e5;
+                                         color:#d94343;">
+
+                                Full
+
+                            </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <h5 class="mt-4 mb-2"
+                            style="font-weight:800;">
+
+                            {{ hospital.name }}
+
+                        </h5>
+
+
+                        <p class="section-text">
+
+                            <i class="bi bi-geo-alt me-1"></i>
+
+                            {{ hospital.city }}
+
+                        </p>
+
+
+                        <div class="resource-info">
+
+                            <div>
+
+                                <small>
+
+                                    Available Beds
+
+                                </small>
+
+                                <strong style="color:#159a91;">
+
+                                    {{ hospital.beds }}
+
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                <small>
+
+                                    Emergency
+
+                                </small>
+
+                                <strong>
+
+                                    {% if hospital.emergency %}
+
+                                    <i class="bi bi-check-circle-fill"
+                                       style="color:#159a91;"></i>
+
+                                    {% else %}
+
+                                    <i class="bi bi-x-circle-fill"
+                                       style="color:#e45757;"></i>
+
+                                    {% endif %}
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <a href="tel:{{ hospital.phone }}"
+                           class="btn btn-outline-health w-100 mt-4">
+
+                            <i class="bi bi-telephone me-2"></i>
+
+                            Contact Hospital
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- BLOOD BANKS -->
+
+        {% if blood_banks %}
+
+        <div class="mb-5">
+
+            <h3 style="font-weight:800;
+                       color:#0d3442;">
+
+                <i class="bi bi-droplet-fill me-2"
+                   style="color:#e45757;"></i>
+
+                Blood Banks
+
+            </h3>
+
+            <p class="section-text">
+
+                Check blood group availability
+
+            </p>
+
+
+            <div class="row g-4">
+
+                {% for bank in blood_banks %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="health-card h-100">
+
+                        <div class="icon-box icon-red">
+
+                            <i class="bi bi-droplet-fill"></i>
+
+                        </div>
+
+
+                        <h5 class="mt-4"
+                            style="font-weight:800;">
+
+                            {{ bank.name }}
+
+                        </h5>
+
+
+                        <p class="section-text">
+
+                            <i class="bi bi-geo-alt me-1"></i>
+
+                            {{ bank.city }}
+
+                        </p>
+
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center
+                                    p-3 mt-3"
+                             style="background:#fff7f7;
+                                    border-radius:14px;">
+
+                            <div>
+
+                                <small>
+
+                                    Blood Group
+
+                                </small>
+
+                                <div style="font-size:22px;
+                                            font-weight:800;
+                                            color:#d94343;">
+
+                                    {{ bank.blood_group }}
+
+                                </div>
+
+                            </div>
+
+                            <div class="text-end">
+
+                                <small>
+
+                                    Available
+
+                                </small>
+
+                                <div style="font-weight:800;">
+
+                                    {{ bank.units }} units
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <a href="tel:{{ bank.phone }}"
+                           class="btn btn-outline-health w-100 mt-4">
+
+                            <i class="bi bi-telephone me-2"></i>
+
+                            Contact Blood Bank
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- MEDICINES -->
+
+        {% if medicines %}
+
+        <div class="mb-5">
+
+            <div class="d-flex justify-content-between
+                        align-items-center">
+
+                <div>
+
+                    <h3 style="font-weight:800;
+                               color:#0d3442;">
+
+                        <i class="bi bi-capsule-pill me-2"
+                           style="color:#7356bd;"></i>
+
+                        Medicines
+
+                    </h3>
+
+                    <p class="section-text">
+
+                        Find medicines and available stock
+
+                    </p>
+
+                </div>
+
+
+                <a href="{{ url_for('compare') }}"
+                   class="btn btn-outline-health">
+
+                    Compare Prices
+
+                </a>
+
+            </div>
+
+
+            <div class="row g-4 mt-1">
+
+                {% for medicine in medicines %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="health-card h-100">
+
+                        <div class="icon-box icon-purple">
+
+                            <i class="bi bi-capsule"></i>
+
+                        </div>
+
+
+                        <h5 class="mt-4"
+                            style="font-weight:800;">
+
+                            {{ medicine.name }}
+
+                        </h5>
+
+
+                        <p class="section-text mb-2">
+
+                            {{ medicine.store }}
+
+                        </p>
+
+
+                        <small style="color:#6b8188;">
+
+                            <i class="bi bi-geo-alt me-1"></i>
+
+                            {{ medicine.city }}
+
+                        </small>
+
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center mt-4">
+
+                            <div>
+
+                                <small>
+
+                                    Price
+
+                                </small>
+
+                                <div style="font-size:23px;
+                                            font-weight:800;
+                                            color:#7356bd;">
+
+                                    ₹{{ medicine.price }}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="text-end">
+
+                                <small>
+
+                                    Stock
+
+                                </small>
+
+                                <div style="font-weight:800;">
+
+                                    {{ medicine.stock }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <a href="tel:{{ medicine.phone }}"
+                           class="btn btn-outline-health w-100 mt-4">
+
+                            <i class="bi bi-telephone me-2"></i>
+
+                            Contact Store
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- NO RESULTS -->
+
+        {% if not hospitals and not blood_banks and not medicines %}
+
+        <div class="health-card text-center py-5">
+
+            <div class="icon-box icon-sky mx-auto">
+
+                <i class="bi bi-search"></i>
+
+            </div>
+
+            <h4 class="mt-4">
+
+                No resources found
+
+            </h4>
+
+            <p class="section-text">
+
+                Try another search term or select
+                a different resource type.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="fw-bold">HealthBridge Dashboard</h1>
+        <p class="text-muted">
+            Live overview of healthcare resources available on HealthBridge.
+        </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <div class="text-muted">Hospitals</div>
+                <div class="display-6 fw-bold">
+                    {{ hospitals|length }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <div class="text-muted">Available Beds</div>
+                <div class="display-6 fw-bold">
+                    {{ stats.beds }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <div class="text-muted">Blood Units</div>
+                <div class="display-6 fw-bold">
+                    {{ stats.blood }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-4 h-100">
+                <div class="text-muted">Medicines</div>
+                <div class="display-6 fw-bold">
+                    {{ medicines|length }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Hospitals -->
+    <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h3 class="fw-bold mb-1">Hospitals</h3>
+                    <p class="text-muted mb-0">
+                        Hospitals currently listed on HealthBridge.
+                    </p>
+                </div>
+
+                <a href="{{ url_for('resources') }}"
+                   class="btn btn-outline-primary">
+                    View Resources
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Hospital</th>
+                            <th>City</th>
+                            <th>Beds</th>
+                            <th>Emergency</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for hospital in hospitals %}
+
+                        <tr>
+                            <td>
+                                <strong>{{ hospital.name }}</strong>
+                            </td>
+
+                            <td>
+                                {{ hospital.city }}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-success">
+                                    {{ hospital.beds }} beds
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ hospital.emergency }}
+                            </td>
+
+                            <td>
+                                {{ hospital.phone }}
+                            </td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                No hospitals available.
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Blood Banks -->
+    <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-4">
+
+            <h3 class="fw-bold mb-1">Blood Banks</h3>
+            <p class="text-muted mb-4">
+                Available blood resources.
+            </p>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Blood Bank</th>
+                            <th>City</th>
+                            <th>Blood Group</th>
+                            <th>Units</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for item in blood %}
+
+                        <tr>
+                            <td>
+                                <strong>{{ item.name }}</strong>
+                            </td>
+
+                            <td>
+                                {{ item.city }}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-danger">
+                                    {{ item.blood_group }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ item.units }}
+                            </td>
+
+                            <td>
+                                {{ item.phone }}
+                            </td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            <td colspan="5"
+                                class="text-center text-muted py-4">
+                                No blood bank data available.
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Medicines -->
+    <div class="card border-0 shadow-sm mb-5">
+        <div class="card-body p-4">
+
+            <h3 class="fw-bold mb-1">Medicines</h3>
+            <p class="text-muted mb-4">
+                Medicine availability and pricing.
+            </p>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Store</th>
+                            <th>City</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for medicine in medicines %}
+
+                        <tr>
+                            <td>
+                                <strong>{{ medicine.name }}</strong>
+                            </td>
+
+                            <td>
+                                {{ medicine.store }}
+                            </td>
+
+                            <td>
+                                {{ medicine.city }}
+                            </td>
+
+                            <td>
+                                ₹{{ medicine.price }}
+                            </td>
+
+                            <td>
+                                {{ medicine.stock }}
+                            </td>
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                            <td colspan="5"
+                                class="text-center text-muted py-4">
+                                No medicine data available.
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

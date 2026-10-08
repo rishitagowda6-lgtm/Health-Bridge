@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="badge bg-success-subtle text-success px-3 py-2 mb-3">
+                💊 Smart Medicine Comparison
+            </div>
+
+            <h1 class="display-5 fw-bold">
+                Compare Medicine Prices
+            </h1>
+
+            <p class="text-muted">
+                Find the medicine you need and compare prices across medical stores.
+            </p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="card border-0 shadow-sm p-4 mb-5">
+            <form action="{{ url_for('compare') }}" method="GET">
+
+                <label class="form-label fw-bold">
+                    Medicine Name
+                </label>
+
+                <div class="input-group">
+                    <input
+                        type="text"
+                        name="q"
+                        class="form-control form-control-lg"
+                        value="{{ q }}"
+                        placeholder="Enter medicine name..."
+                    >
+
+                    <button class="btn btn-success px-4" type="submit">
+                        🔍 Compare Prices
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Results -->
+        {% if rows %}
+
+        <div class="card border-0 shadow-sm p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-1">
+                        Price Comparison
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Results for <strong>{{ q }}</strong>
+                    </p>
+                </div>
+
+                <span class="badge bg-success">
+                    {{ rows|length }} stores found
+                </span>
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Medical Store</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for medicine in rows %}
+
+                        <tr>
+
+                            <td>
+                                <strong>{{ medicine['store'] }}</strong>
+                            </td>
+
+                            <td>
+                                📍 {{ medicine['city'] }}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-success fs-6">
+                                    ₹{{ "%.2f"|format(medicine['price']) }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if medicine['stock'] > 0 %}
+                                    <span class="text-success fw-bold">
+                                        {{ medicine['stock'] }} available
+                                    </span>
+                                {% else %}
+                                    <span class="text-danger">
+                                        Out of stock
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ medicine['phone'] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="card border-0 shadow-sm p-5 text-center">
+
+            <div style="font-size:50px;">
+                💊
+            </div>
+
+            <h3 class="fw-bold mt-3">
+                No medicine found
+            </h3>
+
+            <p class="text-muted">
+                Try searching for another medicine.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

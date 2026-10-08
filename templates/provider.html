@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section-small">
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="text-center mb-5">
+            <div class="eyebrow">
+                🏥 Healthcare Provider Portal
+            </div>
+
+            <h1>Update Resources</h1>
+
+            <p class="section-text">
+                Healthcare providers can update hospital, blood bank and medicine availability.
+            </p>
+        </div>
+
+
+        <!-- FORM CARD -->
+        <div class="health-card p-5">
+
+            <h2 class="mb-4">Provider Resource Update</h2>
+
+            <form action="{{ url_for('provider_add') }}" method="POST">
+
+                <div class="row g-4">
+
+                    <!-- RESOURCE TYPE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Resource Type
+                        </label>
+
+                        <select
+                            name="kind"
+                            id="resourceType"
+                            class="form-select"
+                            required
+                            onchange="showFields()">
+
+                            <option value="">Select resource</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="blood">Blood Bank</option>
+                            <option value="medicine">Medical Store</option>
+
+                        </select>
+                    </div>
+
+
+                    <!-- NAME -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter hospital / blood bank / store name"
+                            required>
+                    </div>
+
+
+                    <!-- CITY -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            name="city"
+                            class="form-control"
+                            placeholder="Enter city"
+                            required>
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            class="form-control"
+                            placeholder="Enter contact number"
+                            required>
+                    </div>
+
+
+                    <!-- ================= HOSPITAL ================= -->
+
+                    <div class="col-md-6 resource-field hospital-field">
+
+                        <label class="form-label">
+                            Available Beds
+                        </label>
+
+                        <input
+                            type="number"
+                            name="beds"
+                            class="form-control"
+                            placeholder="Enter available beds"
+                            min="0">
+
+                    </div>
+
+
+                    <div class="col-md-6 resource-field hospital-field">
+
+                        <label class="form-label">
+                            Emergency Contact
+                        </label>
+
+                        <input
+                            type="text"
+                            name="emergency"
+                            class="form-control"
+                            placeholder="Enter emergency contact">
+
+                    </div>
+
+
+                    <!-- ================= BLOOD BANK ================= -->
+
+                    <div class="col-md-6 resource-field blood-field">
+
+                        <label class="form-label">
+                            Blood Group
+                        </label>
+
+                        <select
+                            name="blood_group"
+                            class="form-select">
+
+                            <option value="">Select blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-6 resource-field blood-field">
+
+                        <label class="form-label">
+                            Available Blood Units
+                        </label>
+
+                        <input
+                            type="number"
+                            name="units"
+                            class="form-control"
+                            placeholder="Enter available units"
+                            min="0">
+
+                    </div>
+
+
+                    <!-- ================= MEDICINE ================= -->
+
+                    <div class="col-md-6 resource-field medicine-field">
+
+                        <label class="form-label">
+                            Medicine Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="medicine"
+                            class="form-control"
+                            placeholder="Enter medicine name">
+
+                    </div>
+
+
+                    <div class="col-md-6 resource-field medicine-field">
+
+                        <label class="form-label">
+                            Medical Store Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="store"
+                            class="form-control"
+                            placeholder="Enter medical store name">
+
+                    </div>
+
+
+                    <div class="col-md-6 resource-field medicine-field">
+
+                        <label class="form-label">
+                            Medicine Price
+                        </label>
+
+                        <input
+                            type="number"
+                            name="price"
+                            class="form-control"
+                            placeholder="Enter medicine price"
+                            min="0"
+                            step="0.01">
+
+                    </div>
+
+
+                    <div class="col-md-6 resource-field medicine-field">
+
+                        <label class="form-label">
+                            Available Stock
+                        </label>
+
+                        <input
+                            type="number"
+                            name="stock"
+                            class="form-control"
+                            placeholder="Enter available stock"
+                            min="0">
+
+                    </div>
+
+
+                    <!-- SUBMIT BUTTON -->
+
+                    <div class="col-12 mt-4">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100">
+
+                            ☁ Update Resource
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function showFields() {
+
+    const type = document.getElementById("resourceType").value;
+
+    // Hide everything first
+    document.querySelectorAll(".resource-field").forEach(function(field) {
+        field.style.display = "none";
+    });
+
+    // Show Hospital fields
+    if (type === "hospital") {
+
+        document.querySelectorAll(".hospital-field").forEach(function(field) {
+            field.style.display = "block";
+        });
+
+    }
+
+    // Show Blood Bank fields
+    else if (type === "blood") {
+
+        document.querySelectorAll(".blood-field").forEach(function(field) {
+            field.style.display = "block";
+        });
+
+    }
+
+    // Show Medicine fields
+    else if (type === "medicine") {
+
+        document.querySelectorAll(".medicine-field").forEach(function(field) {
+            field.style.display = "block";
+        });
+
+    }
+}
+
+
+// Hide all extra fields when page loads
+document.addEventListener("DOMContentLoaded", function() {
+    showFields();
+});
+
+</script>
+
+{% endblock %}
+                    

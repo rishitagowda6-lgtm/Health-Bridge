@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}HealthBridge | Healthcare, Connected{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="section">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <!-- LEFT -->
+            <div class="col-lg-7">
+
+                <span class="section-label">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                    Healthcare Resource Platform
+                </span>
+
+                <h1 class="section-title mt-4">
+                    Healthcare,
+                    <span style="color:#159a91;">
+                        connected.
+                    </span>
+                </h1>
+
+                <p class="section-text mt-4">
+                    Find hospital beds, blood availability and
+                    medicines in one simple place.
+                    HealthBridge helps patients and families
+                    discover healthcare resources faster.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                    <a href="{{ url_for('dashboard') }}"
+                       class="btn btn-health">
+
+                        <i class="bi bi-grid-1x2-fill me-2"></i>
+                        Open Live Dashboard
+
+                    </a>
+
+                    <a href="{{ url_for('sos') }}"
+                       class="btn btn-emergency">
+
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        Emergency SOS
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="col-lg-5">
+
+                <div class="health-card">
+
+                    <div class="icon-box icon-mint">
+
+                        <i class="bi bi-heart-pulse-fill"></i>
+
+                    </div>
+
+                    <h3>
+                        Healthcare at your fingertips
+                    </h3>
+
+                    <p class="section-text">
+                        Explore available healthcare resources
+                        through one centralized platform.
+                    </p>
+
+
+                    <!-- HOSPITALS -->
+
+                    <div class="d-flex justify-content-between
+                                align-items-center mb-3">
+
+                        <span>
+
+                            <i class="bi bi-hospital me-2"
+                               style="color:#159a91;"></i>
+
+                            Hospitals
+
+                        </span>
+
+                        <strong>
+                            {{ stats.hospitals }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- BLOOD -->
+
+                    <div class="d-flex justify-content-between
+                                align-items-center mb-3">
+
+                        <span>
+
+                            <i class="bi bi-droplet-fill me-2"
+                               style="color:#e45757;"></i>
+
+                            Blood Banks
+
+                        </span>
+
+                        <strong>
+                            {{ stats.blood }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- MEDICINES -->
+
+                    <div class="d-flex justify-content-between
+                                align-items-center">
+
+                        <span>
+
+                            <i class="bi bi-capsule me-2"
+                               style="color:#7356bd;"></i>
+
+                            Medicine Listings
+
+                        </span>
+
+                        <strong>
+                            {{ stats.medicines }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESOURCE SECTION -->
+
+<section class="section-small">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                What HealthBridge Connects
+            </span>
+
+            <h2 class="section-title mt-3">
+                One platform. Multiple resources.
+            </h2>
+
+            <p class="section-text mt-3">
+                Discover important healthcare resources
+                through one centralized platform.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- HOSPITAL -->
+
+            <div class="col-md-4">
+
+                <div class="health-card">
+
+                    <div class="icon-box icon-mint">
+
+                        <i class="bi bi-hospital-fill"></i>
+
+                    </div>
+
+                    <h4>
+                        Hospital Beds
+                    </h4>
+
+                    <p class="section-text">
+                        Discover hospitals and view
+                        available bed information.
+                    </p>
+
+                    <a href="{{ url_for('resources') }}"
+                       class="btn btn-outline-health">
+
+                        Find Hospitals
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- BLOOD -->
+
+            <div class="col-md-4">
+
+                <div class="health-card">
+
+                    <div class="icon-box icon-red">
+
+                        <i class="bi bi-droplet-fill"></i>
+
+                    </div>
+
+                    <h4>
+                        Blood Availability
+                    </h4>
+
+                    <p class="section-text">
+                        Search blood banks and
+                        available blood groups.
+                    </p>
+
+                    <a href="{{ url_for('resources') }}"
+                       class="btn btn-outline-health">
+
+                        Find Blood
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- MEDICINE -->
+
+            <div class="col-md-4">
+
+                <div class="health-card">
+
+                    <div class="icon-box icon-purple">
+
+                        <i class="bi bi-capsule-pill"></i>
+
+                    </div>
+
+                    <h4>
+                        Medicine Prices
+                    </h4>
+
+                    <p class="section-text">
+                        Compare medicine prices
+                        across medical stores.
+                    </p>
+
+                    <a href="{{ url_for('compare') }}"
+                       class="btn btn-outline-health">
+
+                        Compare Prices
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EMERGENCY SECTION -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="health-card"
+             style="background:#0d3442;
+                    color:white;
+                    border:none;">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-8">
+
+                    <span class="section-label">
+
+                        <i class="bi bi-lightning-fill"></i>
+
+                        Emergency Support
+
+                    </span>
+
+                    <h2 class="mt-3"
+                        style="font-weight:800;">
+
+                        Need healthcare resources quickly?
+
+                    </h2>
+
+                    <p style="color:#b9d1d5;"
+                       class="mb-0">
+
+                        Use HealthBridge to discover available
+                        resources and connect with healthcare
+                        providers.
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-4 text-lg-end">
+
+                    <a href="{{ url_for('sos') }}"
+                       class="btn btn-emergency">
+
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+                        Open Emergency SOS
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

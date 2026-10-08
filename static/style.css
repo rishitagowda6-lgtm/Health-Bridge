@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f6fbfb;
+    color: #0d3442;
+    margin: 0;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.badge-soft {
+    display: inline-block;
+    background: #dcf7ef;
+    color: #159a91;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+}
+
+.display-title {
+    font-size: 52px;
+    font-weight: 800;
+    color: #0d3442;
+}
+
+.display-title span {
+    color: #159a91;
+}
+
+.section-text {
+    color: #66808f;
+    font-size: 18px;
+}
+
+.health-card {
+    background: white;
+    border: 1px solid #e1eeee;
+    border-radius: 24px;
+    box-shadow: 0 10px 35px rgba(13, 52, 66, 0.06);
+}
+
+.sos-alert {
+    background: #fff4f4;
+    border: 1px solid #ffd5d5;
+    border-radius: 24px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.sos-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 18px;
+    background: #ffe1e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.sos-card {
+    height: 100%;
+    padding: 32px;
+    transition: 0.25s ease;
+}
+
+.sos-card:hover {
+    transform: translateY(-6px);
+}
+
+.card-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    margin-bottom: 20px;
+}
+
+.hospital-icon {
+    background: #dcf7ef;
+}
+
+.blood-icon {
+    background: #ffe4e4;
+}
+
+.phone-icon {
+    background: #eaf6ff;
+}
+
+.sos-card h3 {
+    color: #0d3442;
+}
+
+.sos-card p {
+    color: #66808f;
+    min-height: 70px;
+}
+
+.btn-teal {
+    background: #159a91;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.btn-teal:hover {
+    background: #10857d;
+    color: white;
+}
+
+.btn-danger-custom {
+    background: #e45757;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.btn-danger-custom:hover {
+    background: #d64545;
+    color: white;
+}
+
+.btn-dark-custom {
+    background: #0d3442;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.step-box {
+    padding: 25px;
+    background: #f7fbfb;
+    border-radius: 18px;
+    height: 100%;
+}
+
+.step-number {
+    color: #159a91;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.step-box h4 {
+    color: #0d3442;
+}
+
+.step-box p {
+    color: #66808f;
+}

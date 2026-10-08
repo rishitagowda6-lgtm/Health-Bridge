@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+          
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>
+        {% block title %}
+        HealthBridge
+        {% endblock %}
+    </title>
+
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        :root {
+
+            --navy: #0d3442;
+            --teal: #159a91;
+            --mint: #dcf7ef;
+            --sky: #eaf6ff;
+            --purple: #f2edff;
+            --red: #e45757;
+            --text: #183b45;
+            --muted: #6b8188;
+            --white: #ffffff;
+            --border: #e5eeee;
+
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: "DM Sans", sans-serif;
+
+            color: var(--text);
+
+            background: #f7fbfb;
+
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+
+            font-family: "Plus Jakarta Sans", sans-serif;
+
+        }
+
+
+        /* NAVBAR */
+
+        .navbar-health {
+
+            background: rgba(255,255,255,0.96);
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 16px 0;
+
+        }
+
+
+        .brand {
+
+            text-decoration: none;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-family: "Plus Jakarta Sans", sans-serif;
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            color: var(--navy);
+
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: var(--mint);
+
+            color: var(--teal);
+
+            font-size: 22px;
+
+        }
+
+
+        .nav-link {
+
+            color: #49636b !important;
+
+            font-weight: 600;
+
+            margin-left: 12px;
+
+        }
+
+
+        .nav-link:hover {
+
+            color: var(--teal) !important;
+
+        }
+
+
+        .btn-health {
+
+            background: var(--teal);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .btn-health:hover {
+
+            background: #117e77;
+
+            color: white;
+
+        }
+
+
+        .btn-emergency {
+
+            background: var(--red);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+        }
+
+
+        .btn-emergency:hover {
+
+            background: #c94343;
+
+            color: white;
+
+        }
+
+
+        .btn-outline-health {
+
+            border: 1px solid #b8dcd8;
+
+            color: var(--teal);
+
+            background: white;
+
+            padding: 10px 16px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .btn-outline-health:hover {
+
+            background: var(--mint);
+
+            color: var(--teal);
+
+        }
+
+
+        /* HERO / SECTIONS */
+
+        .section {
+
+            padding: 80px 0;
+
+        }
+
+
+        .section-small {
+
+            padding: 55px 0;
+
+        }
+
+
+        .section-label {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            background: var(--mint);
+
+            color: var(--teal);
+
+            border-radius: 50px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .section-title {
+
+            font-size: clamp(38px, 5vw, 65px);
+
+            line-height: 1.05;
+
+            font-weight: 800;
+
+            color: var(--navy);
+
+        }
+
+
+        .section-text {
+
+            color: var(--muted);
+
+            line-height: 1.7;
+
+            font-size: 16px;
+
+        }
+
+
+        /* CARDS */
+
+        .health-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            height: 100%;
+
+            box-shadow: 0 15px 40px rgba(13,52,66,0.06);
+
+        }
+
+
+        .health-card h3 {
+
+            color: var(--navy);
+
+            font-weight: 800;
+
+            margin-top: 18px;
+
+        }
+
+
+        .health-card h4 {
+
+            color: var(--navy);
+
+            font-weight: 800;
+
+            margin-top: 18px;
+
+        }
+
+
+        .icon-box {
+
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+        }
+
+
+        .icon-mint {
+
+            background: var(--mint);
+
+            color: var(--teal);
+
+        }
+
+
+        .icon-red {
+
+            background: #fff0f0;
+
+            color: var(--red);
+
+        }
+
+
+        .icon-purple {
+
+            background: var(--purple);
+
+            color: #7356bd;
+
+        }
+
+
+        .icon-sky {
+
+            background: var(--sky);
+
+            color: #2782b8;
+
+        }
+
+
+        /* FOOTER */
+
+        footer {
+
+            background: var(--navy);
+
+            color: white;
+
+            padding: 45px 0 25px;
+
+            margin-top: 40px;
+
+        }
+
+
+        footer .brand {
+
+            color: white;
+
+        }
+
+
+        footer p {
+
+            color: #b9d1d5;
+
+        }
+
+
+        .footer-link {
+
+            color: #b9d1d5;
+
+            text-decoration: none;
+
+            display: block;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .footer-link:hover {
+
+            color: white;
+
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            .section {
+
+                padding: 55px 0;
+
+            }
+
+            .section-title {
+
+                font-size: 42px;
+
+            }
+
+            .navbar-health {
+
+                padding: 10px 0;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-health">
+
+    <div class="container">
+
+
+        <a class="brand"
+           href="{{ url_for('home') }}">
+
+            <span class="brand-icon">
+
+                <i class="bi bi-heart-pulse-fill"></i>
+
+            </span>
+
+            HealthBridge
+
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNav"
+        >
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('home') }}"
+                    >
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('dashboard') }}"
+                    >
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('resources') }}"
+                    >
+
+                        Resources
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('compare') }}"
+                    >
+
+                        Medicines
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('provider') }}"
+                    >
+
+                        Provider
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        class="btn btn-emergency"
+                        href="{{ url_for('sos') }}"
+                    >
+
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+
+                        SOS
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- MAIN CONTENT -->
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-6">
+
+                <a
+                    class="brand mb-3"
+                    href="{{ url_for('home') }}"
+                >
+
+                    <span class="brand-icon">
+
+                        <i class="bi bi-heart-pulse-fill"></i>
+
+                    </span>
+
+                    HealthBridge
+
+                </a>
+
+
+                <p class="mt-3">
+
+                    Healthcare, connected.
+
+                    A centralized platform for discovering
+                    hospitals, blood availability and medicines.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-3">
+
+                <h6>Platform</h6>
+
+                <a
+                    class="footer-link"
+                    href="{{ url_for('dashboard') }}"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    class="footer-link"
+                    href="{{ url_for('resources') }}"
+                >
+                    Resources
+                </a>
+
+                <a
+                    class="footer-link"
+                    href="{{ url_for('compare') }}"
+                >
+                    Medicine Prices
+                </a>
+
+            </div>
+
+
+            <div class="col-lg-3">
+
+                <h6>Emergency</h6>
+
+                <a
+                    class="footer-link"
+                    href="{{ url_for('sos') }}"
+                >
+                    Emergency SOS
+                </a>
+
+                <a
+                    class="footer-link"
+                    href="{{ url_for('provider') }}"
+                >
+                    Provider Portal
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <hr style="border-color:#315661; margin:35px 0 20px;">
+
+
+        <p class="mb-0 text-center">
+
+            © 2026 HealthBridge · Academic Project Prototype
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- Bootstrap JavaScript -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>
